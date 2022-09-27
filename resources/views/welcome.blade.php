@@ -68,7 +68,7 @@
 
                                     </div>
                                 </td>
-                                @if(empty(\App\Http\Controllers\AccountController::getInfo($account->lolID)))
+                                @if(\App\Http\Controllers\AccountController::checkEmpty($account->lolID))
                                     <td class="px-6 py-10 text-sm text-center text-gray-500">
                                     </td>
                                     <td class="px-6 py-10 text-sm text-center text-gray-500">

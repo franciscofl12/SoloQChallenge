@@ -95,7 +95,6 @@ class AccountController extends Controller
         $response = Http::withHeaders([
             'X-Riot-Token' => env('LOL_KEY'),
         ])->get(env('LOL_URL') . '/lol/summoner/v4/summoners/by-name/' . $name);
-
         return json_decode($response)->id;
     }
 
@@ -105,6 +104,17 @@ class AccountController extends Controller
         ])->get(env('LOL_URL') . '/lol/league/v4/entries/by-summoner/' . $id);
 
         return json_decode($response);
+    }
+
+    public static function checkEmpty($id) {
+        $response = Http::withHeaders([
+            'X-Riot-Token' => env('LOL_KEY'),
+        ])->get(env('LOL_URL') . '/lol/league/v4/entries/by-summoner/' . $id);
+        if(json_decode($response) == []){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static function getMatches($id) {
