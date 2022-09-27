@@ -68,7 +68,15 @@
 
                                     </div>
                                 </td>
-                                @if(!(empty(\App\Http\Controllers\AccountController::getInfo($account->lolID))))
+                                @if(empty(\App\Http\Controllers\AccountController::getInfo($account->lolID)))
+                                    <td class="px-6 py-10 text-sm text-center text-gray-500">
+                                    </td>
+                                    <td class="px-6 py-10 text-sm text-center text-gray-500">
+                                        Unranked
+                                    </td>
+                                    <td class="px-6 py-10 text-sm text-center text-gray-500">
+                                    </td>
+                                @else
                                     <td class="px-6 py-10 text-sm text-center text-gray-500">
                                         {{\App\Http\Controllers\AccountController::getMatches($account->lolID)}} (<span class="text-green-500">{{\App\Http\Controllers\AccountController::getWins($account->lolID)}}</span> - <span class="text-red-500">{{\App\Http\Controllers\AccountController::getLosses($account->lolID)}}</span>)
                                     </td>
@@ -77,14 +85,6 @@
                                     </td>
                                     <td class="px-6 py-10 text-sm text-center text-gray-500">
                                         {{round((\App\Http\Controllers\AccountController::getWins($account->lolID) / \App\Http\Controllers\AccountController::getMatches($account->lolID))*100) }} %
-                                    </td>
-                                @else
-                                    <td class="px-6 py-10 text-sm text-center text-gray-500">
-                                    </td>
-                                    <td class="px-6 py-10 text-sm text-center text-gray-500">
-                                        Unranked
-                                    </td>
-                                    <td class="px-6 py-10 text-sm text-center text-gray-500">
                                     </td>
                                 @endif
                             </tr>
