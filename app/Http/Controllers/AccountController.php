@@ -16,11 +16,7 @@ class AccountController extends Controller
      */
     public static function index()
     {
-        $response = Http::withHeaders([
-            'X-Riot-Token' => env('LOL_KEY'),
-        ])->get(env('LOL_URL') . '/lol/league/v4/entries/by-summoner/rUJS-Tm32JfcKR8sFHsVT7ZPjo1KfAKge2ut8arOhHT0u2Y');
-
-        return json_decode($response);
+        redirect(view('admin'));
     }
 
     /**
@@ -30,7 +26,7 @@ class AccountController extends Controller
      */
     public function create()
     {
-        //
+        redirect(view('admin'));
     }
 
     /**
@@ -46,6 +42,7 @@ class AccountController extends Controller
             'name' => $request->name,
             'account' => $request->account,
         ]);
+        redirect(view('admin'));
     }
 
     /**
@@ -56,7 +53,7 @@ class AccountController extends Controller
      */
     public function show($id)
     {
-        //
+        redirect(view('admin'));
     }
 
     /**
@@ -67,7 +64,7 @@ class AccountController extends Controller
      */
     public function edit($id)
     {
-        //
+        redirect(view('admin'));
     }
 
     /**
@@ -79,7 +76,7 @@ class AccountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        redirect(view('admin'));
     }
 
     /**
@@ -129,6 +126,18 @@ class AccountController extends Controller
             'X-Riot-Token' => env('LOL_KEY'),
         ])->get(env('LOL_URL') . '/lol/league/v4/entries/by-summoner/' . $id);
         return json_decode($response)[0]->losses;
+    }
+
+    public static function getOnline($id) {
+        $response = Http::withHeaders([
+            'X-Riot-Token' => env('LOL_KEY'),
+        ])->get(env('LOL_URL') . '/lol/spectator/v4/active-games/by-summoner/' . $id);
+        if (array_key_exists("status", json_decode($response,true)) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
 }
